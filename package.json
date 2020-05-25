@@ -1,0 +1,38 @@
+{
+  "name": "bootstrap-custom-hugo",
+  "version": "1.0.0",
+  "description": "Project template for creating custom bootstrap using  gulp-rollup-bootstrap-custom and hugo",
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.13.0",
+    "bootstrap": "^4.5.0",
+    "del": "^5.1.0",
+    "gulp": "^4.0.2",
+    "gulp-rollup-bootstrap-custom": "^1.0.0",
+    "jquery": "^3.5.1",
+    "popper.js": "^1.16.1"
+  },
+  "main": "gulpfile.js",
+  "scripts": {
+    "buildCss": "gulp buildCss",
+    "buildJs": "gulp buildJs",
+    "buildLibs": "gulp buildLibs",
+    "build": "gulp build",
+    "cleanCss": "gulp cleanCss",
+    "cleanJs": "gulp cleanJs",
+    "cleanLibs": "gulp cleanLibs",
+    "clean": "gulp clean",
+    "watchCss": "gulp watchCss",
+    "watchJs": "gulp watchJs",
+    "watch": "gulp watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FpRezDev/bootstrap-custom-hugo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FpRezDev/bootstrap-custom-hugo/issues"
+  },
+  "homepage": "https://github.com/FpRezDev/bootstrap-custom-hugo#readme"
+}
