@@ -1,0 +1,6 @@
+{{- $jquery := resources.Get "libs/jquery/jquery.slim.min.js" }}
+{{- $popper := resources.Get "libs/popper.js/popper.min.js" }}
+{{- $bootstrap := resources.Get "js/bootstrap-custom.min.js" }}
+<script src="{{ $jquery.Permalink | relURL }}" type="text/javascript"></script>
+<script src="{{ $popper.Permalink | relURL }}" type="text/javascript"></script>
+<script src="{{ $bootstrap.Permalink | relURL }}" type="text/javascript"></script>

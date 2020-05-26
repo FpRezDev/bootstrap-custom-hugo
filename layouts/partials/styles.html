@@ -1,0 +1,4 @@
+{{- $bootstrap := resources.Get "css/bootstrap-custom.min.css" }}
+{{- $fontawesome := resources.Get "libs/fontawesome/css/all.min.css" }}
+<link rel="stylesheet" href="{{ $bootstrap.Permalink | relURL }}">
+<link rel="stylesheet" href="{{ $fontawesome.Permalink | relURL }}">

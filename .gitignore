@@ -1,2 +1,6 @@
 node_modules/
 assets/
+wwwroot/
+static/libs/
+static/css/
+static/js/

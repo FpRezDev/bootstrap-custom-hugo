@@ -1,7 +1,25 @@
-const { parallel, series, watch } = require('gulp');
+const { parallel, series, watch, src, dest } = require('gulp');
+const merge = require('merge-stream');
 const builder = require('gulp-rollup-bootstrap-custom');
 const config = require('./build.config');
 const del = require('del');
+
+
+// only used to copy maps to static dir, only way hugo will copy it to wwwroot
+const copyCssMaps = () => {
+  return src(`${config.cssConfig.outputDir}*.map`)
+          .pipe(dest("static/css/"));
+};
+
+const copyJsMaps = () => {
+  return src(`${config.jsConfig.output.file}.map`)
+          .pipe(dest("static/js/"));
+};
+
+const copyLibsMaps = () => {
+  return src('assets/libs/**/*.map')
+            .pipe(dest("static/libs/"));
+};
 
 const buildCss = () => {
   return builder.buildCss(config.cssConfig);
@@ -16,32 +34,38 @@ const buildLibs = () => {
 };
 
 const cleanCss = () => {
-  return del('wwwroot/css/');
+  return del('assets/css/');
 }
 
 const cleanJs = () => {
-  return del('wwwroot/js/');
+  return del('assets/js/');
 }
 
 const cleanLibs = () => {
-  return del('wwwroot/libs/');
+  return del('assets/libs/');
+}
+
+const cleanRoot = () => {
+  return del('wwwroot/');
+}
+
+const cleanMaps = () => {
+  return del(['static/css/', 'static/js/', 'static/libs/']);
 }
 
 const watchJs = () => {
-  watch('src/js/**/*.js', buildJs);
-};
-const watchCss = () => {
-  watch('src/scss/**/*.scss', buildCss)
+  return watch('src/js/**/*.js', series(buildJs, copyJsMaps));
 };
 
-exports.buildCss = buildCss;
-exports.buildJs = buildJs;
-exports.buildLibs = buildLibs;
-exports.build = parallel(buildCss, buildJs, buildLibs);
-exports.cleanCss = cleanCss;
-exports.cleanJs = cleanJs;
-exports.cleanLibs = cleanLibs;
-exports.clean = parallel(cleanCss, cleanJs, cleanLibs);
-exports.watchCss = series(buildCss, watchCss);
-exports.watchJs = series(buildJs, watchJs);
-exports.watch = series(parallel(buildCss, buildJs, buildLibs), parallel(watchCss, watchJs));
+const watchCss = () => {
+  return watch('src/scss/**/*.scss', series(buildCss, copyCssMaps))
+};
+
+const copyMaps = parallel(copyCssMaps,copyJsMaps,copyLibsMaps);
+const build = parallel(buildCss, buildJs, buildLibs);
+const clean = parallel(cleanCss, cleanJs, cleanLibs, cleanMaps, cleanRoot);
+const watchAll = parallel(watchCss, watchJs);
+
+exports.build = series(build, copyMaps);
+exports.clean = clean;
+exports.watch = watchAll;

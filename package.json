@@ -9,21 +9,20 @@
     "gulp": "^4.0.2",
     "gulp-rollup-bootstrap-custom": "^1.0.0",
     "jquery": "^3.5.1",
+    "merge-stream": "^2.0.0",
+    "npm-run-all": "^4.1.5",
     "popper.js": "^1.16.1"
   },
   "main": "gulpfile.js",
   "scripts": {
-    "buildCss": "gulp buildCss",
-    "buildJs": "gulp buildJs",
-    "buildLibs": "gulp buildLibs",
-    "build": "gulp build",
-    "cleanCss": "gulp cleanCss",
-    "cleanJs": "gulp cleanJs",
-    "cleanLibs": "gulp cleanLibs",
+    "build:gulp": "gulp build",
+    "build:hugo": "hugo",
+    "build": "run-s build:gulp build:hugo",
     "clean": "gulp clean",
-    "watchCss": "gulp watchCss",
-    "watchJs": "gulp watchJs",
-    "watch": "gulp watch"
+    "watch:gulp": "gulp watch",
+    "watch:hugo": "hugo server -D --disableFastRender",
+    "watch": "run-p watch:hugo watch:gulp",
+    "dev": "run-s build:gulp watch"
   },
   "repository": {
     "type": "git",

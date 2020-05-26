@@ -21,7 +21,7 @@ const jsConfig = {
   minimize: true,
   output: {
     file: './assets/js/bootstrap-custom.min.js',
-    name: 'index',
+    name: 'bootstrap-custom',
     format: 'umd',
     sourcemap: true,
     globals: { 
@@ -47,7 +47,7 @@ const libsConfig = [
     inputFiles: 'node_modules/@fortawesome/fontawesome-free/css/all.min.css'
   },
   {
-    outputDirectory: 'assets/libs/fontawesome/webfonts/',
+    outputDirectory: 'static/libs/fontawesome/webfonts/',
     inputFiles: 'node_modules/@fortawesome/fontawesome-free/webfonts/fa-*'
   }
 ];
